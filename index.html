@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Untitled Document</title>
+	<link rel="stylesheet" type="text/css" href="bs/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Navbar</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+       <a class="nav-link" href="readjson.html">Read Data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li> 
+    </ul>
+  </div> 
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-3">
+            <div class="panel panel-default">
+                <hr/>
+                <div class="panel-headng">
+                    <center>
+                        Register
+                    </center>
+                </div>
+                
+                <hr/>
+             <form id="form">
+
+                 <div class="form-group">
+                     <label for="exampleInputname">Name</label>
+                     <input type="text" id='name' name="name " class="form-control" placeholder="name">
+                 </div>
+
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Email</label>
+                     <input type="email" name="Email" id='email' class="form-control" placeholder="Enter email">
+                 </div>
+
+                 <div class="form-group">
+                     <label for="exampleInputmobile">Mobile</label>
+                     <input type="tel" name="mobile" id='mobile' class="form-control"placeholder="Enter mobile">
+                 </div>
+
+                 <div class="form-group">
+                     <label for="exampleInputcity">City</label>
+                     <input type="text" name="city" id='city' class="form-control" placeholder="Enter city">
+                 </div>
+
+                 <div class="form-group">
+                     <label for="exampleInputpassword">Password</label>
+                     <input type="password" name="password" id='password' class="form-control" aria-describedby="emailHelp" placeholder="Enter password">
+                 </div>
+                   <div class="form-group">
+                       <div class="checkbox">
+                           <label><input type="checkbox" class="form-control" checked="yes" id='status' />Active Status</label>
+                       </div>
+                   </div>
+
+                 <button type="submit" id="insert" class="btn btn-primary">Submit</button>
+             </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript" src="bs/js/bootstrap.min.js"></script>
+        <script type="text/javascript" >
+           $(document).ready(function() {
+        $("#insert").click(function() {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var mobile = $("#mobile").val();
+            var city = $("#city").val();
+            var password = $("#password").val();
+            var status = $("#status").val();
+            var dataString = "name=" + name + "&email=" + email + "&mobile=" + mobile +  "&city=" + city +  "&password=" + password +  "&status=" + status + "&insert=";
+            if ($.trim(name).length > 0 & $.trim(email).length > 0 & $.trim(mobile).length > 0 & $.trim(city).length > 0 & $.trim(password).length > 0 ) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://posassist.host/CORDOVA/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+        </script>
+</body>
+</html>
